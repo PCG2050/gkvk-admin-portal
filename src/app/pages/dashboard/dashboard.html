@@ -1,0 +1,34 @@
+<div class="dashboard-container">
+    <h1 class="dashboard-title">Admin Dashboard</h1>
+  <div class="dashboard-cards-container">
+  <div class="dashboard-card">
+    <div class="card-icon trainers-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+      </svg>
+    </div>
+    <div class="card-content">
+      <div class="card-title">Total Trainers</div>
+      <div class="card-number">{{ numberOfTrainers }}</div>
+    </div>
+    <div class="card-footer">
+      <a routerLink="/trainers" class="card-link">View All Trainers &rarr;</a>
+    </div>
+  </div>
+
+  <div class="dashboard-card">
+    <div class="card-icon units-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+      </svg>
+    </div>
+    <div class="card-content">
+      <div class="card-title">Total Units</div>
+      <div class="card-number">{{ numberOfUnits }}</div>
+    </div>
+    <div class="card-footer">
+      <a routerLink="/units" class="card-link">View All Units &rarr;</a>
+    </div>
+  </div>
+
+  </div>
