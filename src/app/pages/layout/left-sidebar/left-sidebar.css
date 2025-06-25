@@ -13,6 +13,7 @@
   }
   .sidenav .logo-container {
     display: flex;
+    flex-direction: row;
     align-items: center;
     padding: 0.938rem 0.938rem 0 0.938rem;
     width: 100%;
@@ -30,10 +31,15 @@
     border: none;
   }
   .sidenav .logo-container .logo-text {
-    margin-left: 1.5rem;
-    font-size: 24px;
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
     font-weight: 700;
     color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .sidenav .logo-container .btn-close {
     margin-left: auto;
@@ -95,8 +101,22 @@
     color: #000;
   }
   .org-logo {
-  display: block;
-  margin: 12px auto 0 auto;
-  max-width: 80px;
-  height: auto;
+display: block;
+width: 80%;
+max-width: 160px;
+min-width: 80px;
+
+border-radius: 8px;
+background: #fff;
+padding: 4px;
+box-sizing: border-box;
 }
+.image-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+ 

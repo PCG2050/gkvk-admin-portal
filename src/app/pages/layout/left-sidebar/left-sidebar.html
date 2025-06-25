@@ -7,12 +7,17 @@
       <i class="fal fa-bars"></i>
     </button>
     @if (!isLeftSidebarCollapsed()) {
-      <div class="logo-text">GKVK</div>
-      <button class="btn-close" (click)="closeSidenav()">
+      <div class="logo-text">Unit of Directorite division</div>
+      <!-- <button class="btn-close" (click)="closeSidenav()">
         <i class="fal fa-times close-icon"></i>
-      </button>
+      </button> -->
     }
   </div>
+  @if (!isLeftSidebarCollapsed()) {
+    <div class="image-container">
+      <img src="org-logo.png" alt="Organization Logo" class="org-logo" />
+    </div>
+  }
   <div class="sidenav-nav">
     @for (item of items; track $index) {
       <li class="sidenav-nav-item">
@@ -29,7 +34,5 @@
         </a>
       </li>
     }
-    
-    
   </div>
 </div>
