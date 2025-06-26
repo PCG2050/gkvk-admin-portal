@@ -1,1 +1,63 @@
-<p>edit-trainer works!</p>
+<div class="trainer-assignment-container">
+  <h2 class="section-title">Trainer-Unit Assignment</h2>
+  <form class="filter-bar" (ngSubmit)="onSearch()" #filterForm="ngForm">
+    <div class="filter-fields">
+      <label for="institute-select" class="visually-hidden">Institute</label>
+      <select id="institute-select" class="dropdown" [(ngModel)]="selectedInstitute" name="institute">
+        <option value="">Institute</option>
+        <option *ngFor="let inst of institutes" [value]="inst">{{ inst }}</option>
+      </select>
+      <label for="unit-select" class="visually-hidden">Unit</label>
+      <select id="unit-select" class="dropdown" [(ngModel)]="selectedUnit" name="unit">
+        <option value="">Unit</option>
+        <option *ngFor="let unit of units" [value]="unit">{{ unit }}</option>
+      </select>
+      <label for ="region-select" class="visually-hidden">Region</label>
+      <select id="region-select" class="dropdown" [(ngModel)]="selectedRegion" name="region">
+        <option value="">Region</option>
+        <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
+      </select>
+    </div>
+    <button type="submit" class="search-btn">Search</button>
+    <button type="button" class="reset-btn" (click)="onReset()">Reset</button>
+  </form>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Sl No</th>
+          <th>Email</th>
+          <th>Assigned Units</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let trainer of filteredAssignments; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ trainer.email }}</td>
+          <td>{{ trainer.units.join(', ') }}</td>
+          <td>
+            <button class="reassign-btn" (click)="startReassign(trainer)">Reassign</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="download-btn" (click)="downloadReport()">Download Report</button>
+  </div>
+
+  <!-- Reassign Modal -->
+  <div class="modal-backdrop" *ngIf="showReassign">
+    <div class="modal">
+      <h3>Reassign Units</h3>
+      <label>Select Units:</label>
+      <select multiple [(ngModel)]="reassignUnits" class="dropdown">
+        <option *ngFor="let unit of units" [value]="unit">{{ unit }}</option>
+      </select>
+      <div class="modal-actions">
+        <button (click)="saveReassignment()">Save</button>
+        <button (click)="cancelReassignment()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,8 +4,7 @@ import { RouterModule } from '@angular/router';
 
 
 @Component({
-  selector: 'app-left-sidebar',
-  standalone: true,
+  selector: 'app-left-sidebar',  
   imports: [RouterModule, CommonModule],
   templateUrl: './left-sidebar.html',
   styleUrl: './left-sidebar.css'

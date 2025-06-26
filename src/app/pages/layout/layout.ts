@@ -5,7 +5,7 @@ import { Main } from './main/main';
 
 @Component({
   selector: 'app-layout',
-  imports: [RouterOutlet,RouterLink,LeftSidebar,Main],
+  imports: [LeftSidebar,Main],
   templateUrl: './layout.html',
   styleUrl: './layout.css'
 })

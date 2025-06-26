@@ -27,7 +27,7 @@ export const routes: Routes = [
             {
                 path: 'Edit-Trainers',
                 component:EditTrainer,
-                title: ' Trainers'
+                title: 'Trainers'
             },
             {
                 path: 'Edit-Units',
