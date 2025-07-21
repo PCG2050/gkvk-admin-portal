@@ -1,1 +1,79 @@
-<p>edit-unit works!</p>
+<div class="trainer-assignment-container"> <!-- Reusing the same container class for consistent styling -->
+  <h2 class="section-title">Unit Management</h2>
+
+  <!-- Feedback Message Display -->
+  <div *ngIf="feedbackMessage" class="feedback-message">
+    {{ feedbackMessage }}
+  </div>
+
+  <!-- Filter Bar -->
+  <form class="filter-bar" (ngSubmit)="onSearch()" #filterForm="ngForm">
+    <div class="filter-fields">
+      <label for="region-select" class="visually-hidden">Region</label>
+      <select id="region-select" class="dropdown" [(ngModel)]="selectedRegion" name="region">
+        <option value="">Region</option>
+        <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
+      </select>
+    </div>
+    <button type="submit" class="search-btn">Search</button>
+    <button type="button" class="reset-btn" (click)="onReset()">Reset</button>
+  </form>
+
+  <!-- Add Unit Form -->
+  <form class="add-trainer-form" (ngSubmit)="addUnit()" #addUnitForm="ngForm">
+    <input
+      type="text"
+      placeholder="Unit Name"
+      [(ngModel)]="newUnitName"
+      name="newUnitName"
+      required
+      class="add-trainer-input"
+    />
+    <label for="newUnitRegion" class="visually-hidden">Region</label>
+    <select id="newUnitRegion" class="dropdown" [(ngModel)]="newUnitRegion" name="newUnitRegion" required>
+      <option value="">Select Region</option>
+      <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
+    </select>
+
+    <button type="submit" [disabled]="!addUnitForm.form.valid" class="add-btn">Add Unit</button>
+  </form>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Sl No</th>
+          <th>Unit Name</th>
+          <th>Region</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let unit of filteredUnits; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ unit.name }}</td>
+          <td>{{ unit.region }}</td>
+          <td>
+            <button class="delete-btn" (click)="confirmDelete(unit)">Delete</button>
+          </td>
+        </tr>
+        <tr *ngIf="filteredUnits.length === 0">
+          <td colspan="4" class="no-data-message">No units found matching the criteria.</td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="download-btn" (click)="downloadReport()">Download Report</button>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="modal-backdrop" *ngIf="showDeleteConfirm">
+    <div class="modal">
+      <h3>Delete Unit</h3>
+      <p>Are you sure you want to delete unit <strong>{{ unitToDelete?.name }}</strong>?</p>
+      <div class="modal-actions">
+        <button (click)="deleteUnit()">Yes, Delete</button>
+        <button (click)="cancelDelete()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

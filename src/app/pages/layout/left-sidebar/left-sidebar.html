@@ -7,7 +7,7 @@
       <i class="fal fa-bars"></i>
     </button>
     @if (!isLeftSidebarCollapsed()) {
-      <div class="logo-text">Unit of Directorite division</div>
+      <div class="logo-text">UAS Bengaluru</div>
       <!-- <button class="btn-close" (click)="closeSidenav()">
         <i class="fal fa-times close-icon"></i>
       </button> -->
@@ -18,21 +18,45 @@
       <img src="org-logo.png" alt="Organization Logo" class="org-logo" />
     </div>
   }
-  <div class="sidenav-nav">
+<div class="sidenav-nav">
     @for (item of items; track $index) {
       <li class="sidenav-nav-item">
-        <a
-          class="sidenav-nav-link"
-          [routerLink]="item.routeLink"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <i class="sidenav-link-icon" [class]="item.icon"></i>
-          @if (!isLeftSidebarCollapsed()) {
-            <span class="sidenav-link-text">{{ item.label }}</span>
-          }
-        </a>
+        @if (item.routeLink === 'signout') {
+          <a
+            class="sidenav-nav-link"
+            href="#"
+            (click)="onSignOutClick($event)"
+          >
+            <i class="sidenav-link-icon" [class]="item.icon"></i>
+            @if (!isLeftSidebarCollapsed()) {
+              <span class="sidenav-link-text">{{ item.label }}</span>
+            }
+          </a>
+        } @else {
+          <a
+            class="sidenav-nav-link"
+            [routerLink]="item.routeLink"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <i class="sidenav-link-icon" [class]="item.icon"></i>
+            @if (!isLeftSidebarCollapsed()) {
+              <span class="sidenav-link-text">{{ item.label }}</span>
+            }
+          </a>
+        }
       </li>
     }
+  </div>
+  
+</div>
+<div class="modal-backdrop" *ngIf="showSignOutConfirm">
+  <div class="modal">
+    <h3>Sign Out</h3>
+    <p>Are you sure you want to sign out?</p>
+    <div class="modal-actions">
+      <button (click)="confirmSignOut()">Yes, Sign Out</button>
+      <button (click)="cancelSignOut()">Cancel</button>
+    </div>
   </div>
 </div>

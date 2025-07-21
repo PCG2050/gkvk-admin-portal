@@ -20,8 +20,8 @@ export class Dashboard implements OnInit {
    fetchDashboardData(): void {
     // Simulate fetching data from a service/backend
     setTimeout(() => {
-      this.numberOfTrainers = 230; // Example data
-      this.numberOfUnits = 10;     // Example data
+      this.numberOfTrainers = 5; // Example data
+      this.numberOfUnits = 6;     // Example data
     }, 500); // Simulate network delay
   }
   

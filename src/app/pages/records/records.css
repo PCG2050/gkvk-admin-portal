@@ -1,3 +1,5 @@
+/* Reusing the CSS from edit-trainer.css/edit-unit.css for consistent styling */
+
 .trainer-assignment-container {
   background: #fff;
   border-radius: 12px;
@@ -41,8 +43,7 @@
 }
 
 
-.filter-bar,
-.add-trainer-form {
+.filter-bar { /* Reusing filter-bar */
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
@@ -64,8 +65,7 @@
 }
 
 .dropdown,
-.add-trainer-input,
-.add-trainer-units { /* Removed .add-trainer-units from here */
+.add-trainer-input { /* Reusing add-trainer-input for general inputs */
   padding: 10px 15px;
   border: 1px solid #ced4da;
   border-radius: 6px;
@@ -77,31 +77,16 @@
   min-width: 150px;
 }
 
-
-.modal .dropdown[multiple] { /* Target multiple select specifically */
-  padding: 10px 15px;
-  border: 1px solid #ced4da;
-  border-radius: 6px;
-  font-size: 1rem;
-  color: #495057;
-  background-color: #fff;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
-  flex: 1 1 180px;
-  min-width: 150px;
-  min-height: 100px; 
-  resize: vertical;
-  /* Ensure consistent appearance for multiple select */
-  -webkit-appearance: none; /* Remove default browser styling for consistency */
-  -moz-appearance: none;
-  appearance: none;
-  background-image: linear-gradient(45deg, transparent 50%, gray 50%),
-                    linear-gradient(135deg, gray 50%, transparent 50%),
-                    linear-gradient(to right, #ccc, #ccc);
-  background-position: calc(100% - 20px) calc(1em + 2px),
-                       calc(100% - 15px) calc(1em + 2px),
-                       calc(100% - 2.5em) 0.5em;
-  background-size: 5px 5px, 5px 5px, 1px 1.5em;
-  background-repeat: no-repeat;
+.date-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1 1 250px; /* Allow date group to take more space */
+}
+.date-group .add-trainer-input,
+.date-group .dropdown {
+  flex: 1; /* Distribute space evenly within the group */
+  min-width: 100px; /* Ensure they don't get too small */
 }
 
 
@@ -164,9 +149,7 @@ tr:hover {
 button,
 .search-btn,
 .reset-btn,
-.reassign-btn,
-.download-btn,
-.add-btn {
+.download-btn {
   border-radius: 6px;
   font-size: 1rem;
   transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
@@ -182,9 +165,7 @@ button,
 button:hover,
 .search-btn:hover,
 .reset-btn:hover,
-.reassign-btn:hover,
-.download-btn:hover,
-.add-btn:hover {
+.download-btn:hover {
   background: #004085; /* Darker blue on hover */
   color: #fff;
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
@@ -194,74 +175,6 @@ button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
   box-shadow: none;
-}
-
-.delete-btn {
-  background: #e74c3c;
-  color: #fff;
-  margin-left: 8px;
-}
-.delete-btn:hover {
-  background: #c0392b;
-}
-
-.modal-backdrop {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1050; /* Bootstrap uses 1050 for modals */
-}
-.modal {
-  background: #fff;
-  padding: 24px 32px;
-  border-radius: 10px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-  max-width: 600px;
-  max-height: 90vh;
-  max-height: fit-content;
-  overflow-y: auto; /* Allow scrolling if content exceeds height */
-  width: 100%;
-  z-index: 1051; /* Ensure it appears above backdrop */
-  position: relative;
-  display: block;
-  opacity: 1;
-  visibility: visible; /* Ensure it stacks above */
-}
-
-.modal h3 {
-  color: #012a5b;
-  margin-bottom: 20px;
-  font-size: 1.5rem;
-}
-
-.modal p {
-  color: #2c3e50;
-  margin-bottom: 24px;
-}
-
-.modal label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #2c3e50;
-  text-align: left;
-}
-
-.modal .dropdown {
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-.modal-actions {
-  margin-top: 16px;
-  display: flex;
-  gap: 12px;
-  justify-content: center; /* Center buttons in modal */
 }
 
 .no-data-message {
@@ -277,22 +190,23 @@ button:disabled {
     margin: 16px auto;
     max-width: 98vw;
   }
-  .filter-bar,
-  .add-trainer-form {
+  .filter-bar {
     flex-direction: column;
     gap: 12px;
     padding: 12px;
   }
-  .filter-fields,
-  .add-trainer-form > *:not(button) { /* Target all inputs/selects except buttons */
+  .filter-fields {
     width: 100%; /* Make them full width */
     flex-basis: auto; /* Reset flex basis */
   }
   .dropdown,
-  .add-trainer-input,
-  .add-trainer-units {
+  .add-trainer-input {
     width: 100%; /* Ensure inputs/selects take full width */
     min-width: unset; /* Remove min-width constraint */
+  }
+  .date-group {
+    flex-direction: column;
+    width: 100%;
   }
 }
 
@@ -305,14 +219,6 @@ button:disabled {
   }
   th, td {
     padding: 8px 12px;
-    font-size: 0.9rem;
-  }
-  .modal {
-    padding: 16px 24px;
-    min-width: unset;
-  }
-  .modal-actions button {
-    padding: 8px 15px;
     font-size: 0.9rem;
   }
 }

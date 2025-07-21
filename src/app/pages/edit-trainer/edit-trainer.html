@@ -1,17 +1,28 @@
 <div class="trainer-assignment-container">
-  <h2 class="section-title">Trainer-Unit Assignment</h2>
+  <h2 class="section-title">Unit Head Assignment</h2>
+
+  <!-- Feedback Message Display -->
+  <div *ngIf="feedbackMessage" class="feedback-message">
+    {{ feedbackMessage }}
+  </div>
+
   <form class="filter-bar" (ngSubmit)="onSearch()" #filterForm="ngForm">
     <div class="filter-fields">
+      <!-- Removed Institute dropdown -->
+      <!--
       <label for="institute-select" class="visually-hidden">Institute</label>
       <select id="institute-select" class="dropdown" [(ngModel)]="selectedInstitute" name="institute">
         <option value="">Institute</option>
         <option *ngFor="let inst of institutes" [value]="inst">{{ inst }}</option>
       </select>
+      -->
+
       <label for="unit-select" class="visually-hidden">Unit</label>
       <select id="unit-select" class="dropdown" [(ngModel)]="selectedUnit" name="unit">
         <option value="">Unit</option>
         <option *ngFor="let unit of units" [value]="unit">{{ unit }}</option>
       </select>
+
       <label for ="region-select" class="visually-hidden">Region</label>
       <select id="region-select" class="dropdown" [(ngModel)]="selectedRegion" name="region">
         <option value="">Region</option>
@@ -22,12 +33,49 @@
     <button type="button" class="reset-btn" (click)="onReset()">Reset</button>
   </form>
 
+  <!-- Add Trainer Form -->
+  <form class="add-trainer-form" (ngSubmit)="addTrainer()" #addTrainerForm="ngForm">
+    <input
+      type="email"
+      placeholder="Trainer Email"
+      [(ngModel)]="newTrainerEmail"
+      name="newTrainerEmail"
+      required
+      class="add-trainer-input"
+    />
+    <!-- Removed Institute dropdown for new trainer -->
+    <!--
+    <label for="newTrainerInstitute" class="visually-hidden">Institute</label>
+    <select id="newTrainerInstitute" class="dropdown" [(ngModel)]="newTrainerInstitute" name="newTrainerInstitute" required>
+      <option value="">Select Institute</option>
+      <option *ngFor="let inst of institutes" [value]="inst">{{ inst }}</option>
+    </select>
+    -->
+
+    <label for="newTrainerRegion" class="visually-hidden">Region</label>
+    <select id="newTrainerRegion" class="dropdown" [(ngModel)]="newTrainerRegion" name="newTrainerRegion" required>
+      <option value="">Select Region</option>
+      <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
+    </select>
+
+    <label for="newTrainerUnits" class="visually-hidden">Select Units</label>
+ <select id="newTrainerUnits" [(ngModel)]="newTrainerUnits" name="newTrainerUnits" class="dropdown" required>
+  <option value="">Select Units</option>
+  <option *ngFor="let unit of units" [value]="unit">{{ unit }}</option>
+</select>
+
+    <button type="submit" [disabled]="!addTrainerForm.form.valid" class="add-btn">Add Trainer</button>
+  </form>
+
   <div class="table-container">
     <table>
       <thead>
         <tr>
           <th>Sl No</th>
           <th>Email</th>
+          <!-- Removed Institute column -->
+          <!-- <th>Institute</th> -->
+          <th>Region</th>    <!-- Kept column -->
           <th>Assigned Units</th>
           <th>Actions</th>
         </tr>
@@ -36,10 +84,17 @@
         <tr *ngFor="let trainer of filteredAssignments; let i = index">
           <td>{{ i + 1 }}</td>
           <td>{{ trainer.email }}</td>
+          <!-- Removed Institute display -->
+          <!-- <td>{{ trainer.institute }}</td> -->
+          <td>{{ trainer.region }}</td>    <!-- Display region -->
           <td>{{ trainer.units.join(', ') }}</td>
           <td>
             <button class="reassign-btn" (click)="startReassign(trainer)">Reassign</button>
+            <button class="delete-btn" (click)="confirmDelete(trainer)">Delete</button>
           </td>
+        </tr>
+        <tr *ngIf="filteredAssignments.length === 0">
+          <td colspan="5" class="no-data-message">No trainers found matching the criteria.</td> <!-- Adjusted colspan -->
         </tr>
       </tbody>
     </table>
@@ -49,14 +104,26 @@
   <!-- Reassign Modal -->
   <div class="modal-backdrop" *ngIf="showReassign">
     <div class="modal">
-      <h3>Reassign Units</h3>
-      <label>Select Units:</label>
-      <select multiple [(ngModel)]="reassignUnits" class="dropdown">
-        <option *ngFor="let unit of units" [value]="unit">{{ unit }}</option>
-      </select>
+      <h3>Reassign Units for {{ reassignTrainer?.email }}</h3>
+      <label for="reassign-units-select">Select Units:</label>
+     <select id="reassign-units-select" multiple [(ngModel)]="reassignUnits" name="reassignUnits" class="dropdown">
+  <option *ngFor="let unit of units" [value]="unit">{{ unit }}</option>
+</select>
       <div class="modal-actions">
         <button (click)="saveReassignment()">Save</button>
         <button (click)="cancelReassignment()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="modal-backdrop" *ngIf="showDeleteConfirm">
+    <div class="modal">
+      <h3>Delete Trainer</h3>
+      <p>Are you sure you want to delete trainer <strong>{{ trainerToDelete?.email }}</strong>?</p>
+      <div class="modal-actions">
+        <button (click)="deleteTrainer()">Yes, Delete</button>
+        <button (click)="cancelDelete()">Cancel</button>
       </div>
     </div>
   </div>

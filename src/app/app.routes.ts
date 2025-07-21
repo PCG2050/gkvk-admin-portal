@@ -2,9 +2,9 @@ import { Routes } from '@angular/router';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { Login } from './pages/login/login';
 import { Layout } from './pages/layout/layout';
-import { EditTrainer } from './pages/edit-trainer/edit-trainer';
-import { EditUnit } from './pages/edit-unit/edit-unit';
-
+import { EditTrainerComponent } from './pages/edit-trainer/edit-trainer';
+import { EditUnitComponent } from './pages/edit-unit/edit-unit';
+import { Records } from './pages/records/records';
 export const routes: Routes = [
     {
         path: '',
@@ -26,13 +26,18 @@ export const routes: Routes = [
             },
             {
                 path: 'Edit-Trainers',
-                component:EditTrainer,
+                component:EditTrainerComponent,
                 title: 'Trainers'
             },
             {
                 path: 'Edit-Units',
-                component:EditUnit,
-                title: 'Edit Units'
+                component:EditUnitComponent,
+                title: 'Units'
+            },
+            {
+                path: 'records',
+                component: Records,
+                title: 'Records'
             },
 
         ]

@@ -1,0 +1,35 @@
+<div class="multi-select-dropdown">
+  <div class="input-container">
+    @for (item of selected; track displayWith(item)) {
+      <div class="selected-item">
+        {{ displayWith(item) }}
+        <button (click)="removeItem(item, $event)">x</button>
+      </div>
+    }
+    <input
+      type="text"
+      (focus)="showDropdown()"
+      (input)="filterItems($event)"
+      [placeholder]="isDropdownVisible ? '' : 'Select items...'"
+      title="Select items"
+      aria-label="Select items"
+    >
+  </div>
+  @if(isDropdownVisible) {
+    <div class="dropdown-list">
+      @for(item of filteredItems; track displayWith(item)) {
+        <div class="dropdown-item" (click)="toggleItem(item, $event)">
+          <span class="checkbox" [class.checked]="isSelected(item)">
+            @if (isSelected(item)) {
+              <span class="checkmark">✓</span>
+            }
+          </span>
+          <span>{{ displayWith(item) }}</span>
+          @if (extraWith) {
+            <span>{{ extraWith(item) }}</span>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

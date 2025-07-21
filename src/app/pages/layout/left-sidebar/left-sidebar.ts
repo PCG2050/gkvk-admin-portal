@@ -1,6 +1,7 @@
 import { Component ,input,output} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -22,12 +23,17 @@ export class LeftSidebar {
   {
     routeLink: 'Edit-Trainers',
     icon: 'fa fa-users',
-    label: 'Trainers',
+    label: 'Unit heads',
   },
   {
     routeLink: 'Edit-Units',
     icon: 'fa fa-cubes',
     label: 'Units',
+  },
+  {
+  routeLink: 'records',
+  icon: 'fa fa-file-alt', // or any icon you prefer
+  label: 'Records',
   },
     {
       routeLink:'signout',
@@ -35,6 +41,24 @@ export class LeftSidebar {
       label:'Sign Out',
     }
   ];
+   showSignOutConfirm = false;
+  constructor(private router: Router) {}
+
+
+  onSignOutClick(event: Event) {
+    event.preventDefault(); // Prevent default anchor behavior
+    this.showSignOutConfirm = true;
+  }
+
+  confirmSignOut() {
+    sessionStorage.clear();
+    this.showSignOutConfirm = false;
+    this.router.navigateByUrl('/login',{replaceUrl: true});
+  }
+
+  cancelSignOut() {
+    this.showSignOutConfirm = false;
+  }
   toggleCollapse(): void {
     this.changeIsLeftSidebarCollapsed.emit(!this.isLeftSidebarCollapsed());
   }
